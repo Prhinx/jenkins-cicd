@@ -5,7 +5,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-		sh 'mvn clean package'
+		sh '/usr/share/maven/bin/mvn clean package'
+'
             }
         }
         stage('test') {
@@ -14,7 +15,7 @@ pipeline {
 		sh 'mvn test'
             }
         }
-        stage('Deploy') {
+        stage('deploy') {
             steps {
                 echo 'Deploying....'
 		sshagent(['Deploy']) {
