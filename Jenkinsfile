@@ -5,13 +5,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-		sh '/usr/share/maven/bin/mvn package'
+		sh 'mvn package'
             }
         }
         stage('test') {
             steps {
                 echo 'Building..'
-		sh '/usr/share/maven/bin/mvn test'
+		sh 'mvn test'
             }
         }
         stage('Deploy') {
