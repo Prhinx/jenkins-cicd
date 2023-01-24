@@ -1,26 +1,26 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Build') {
             steps {
-            echo 'Building..'
-                sh 'mvn clean package'
+                echo 'Building..'
+		sh '/usr/share/maven/bin/mvn package'
             }
         }
         stage('test') {
             steps {
-            echo 'Building..'
-                sh 'mvn test'
+                echo 'Building..'
+		sh '/usr/share/maven/bin/mvn test'
             }
         }
-        stage('deploy') {
+        stage('Deploy') {
             steps {
-            echo 'Deploying....' 
-            sshagent(['Deploy']) { 
-                sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/jenkins-cicd/target/webapp-0.2.war centos@18.208.206.41:/home/centos/apache-tomcat-7.0.94/webapps"
-                 }
+                echo 'Deploying....'
+		sshagent(['Deploy']) {
+		sh "scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/jenkins-cicd/target/webapp-0.2.war centos@18.208.206.41:/home/centos/apache-tomcat-7.0.94-M1/webapps"
+		 }
             }
-        }
-    }
+        }
+    }
 }
